@@ -3,19 +3,18 @@ package br.dbt.chr.ui;
 import br.dbt.chr.resources.DrawableRes;
 import br.dbt.chr.resources.values.ColorValue;
 import br.dbt.chr.resources.values.StringValue;
+import br.dbt.chr.ui.context.Chronometer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ChrUI extends JFrame implements Serializable, ActionListener, WindowListener,
+public class ChrUI extends Chronometer implements Serializable, ActionListener,
         Runnable {
 
     /**
@@ -26,11 +25,18 @@ public class ChrUI extends JFrame implements Serializable, ActionListener, Windo
 
     public transient JButton btAction, btReset, btAddHistory, btSettings,
             btAbout;
+
     public JButton btClear;
+
     public transient JTextArea jtxtHistory;
+
     public transient JLabel jlVisorChr, jlMsm;
-    public JPanel jp;
+
     public OptionsUI getConf;
+
+
+
+
     // millsecounds, secounds, minutes
     private transient int mseg = 0, seg = 0, min = 0;
     // string ms, sec, min
@@ -46,55 +52,28 @@ public class ChrUI extends JFrame implements Serializable, ActionListener, Windo
 
     public ChrUI() {
 
+        super(StringValue.ST_TITLE.toString());
+
         // LookAndFeel
         try {
-            try {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
         } catch (UnsupportedLookAndFeelException e) {
-
+            JOptionPane.showMessageDialog(this, "Sistema não compativel, por favor contate o desenvolvedor para mais informações!",
+                    "Erro de incompatiblidade", JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
-    }
-
-    // Custom button
-    public static void setCustomButton(JButton b, Image icNormal, Image icPressed, String name,
-                                       Rectangle bounds) {
-        b.setName(name);
-        b.setIcon(new ImageIcon(icNormal));
-        b.setPressedIcon(new ImageIcon(icPressed));
-        b.setBounds(bounds);
-        b.setOpaque(false);
-        b.setBorderPainted(false);
-        b.setContentAreaFilled(false);
-        b.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        b.setToolTipText(name);
     }
 
     // Initialize Objects
     public void onInit(ChrUI saved) {
 
-        // Frame (Janela)
-        this.setTitle(StringValue.ST_TITLE.toString());
-        this.setLocation(200, 200);
-        this.setSize(280, 400);
-        this.setIconImage(DrawableRes.IC_LAUNCHER.build());
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.addWindowListener(this);
-        this.setAlwaysOnTop(true);
-
-        // Pane
-        jp = new JPanel();
-        jp.setBackground(ColorValue.BLUE.build());
-        jp.setLayout(null);
-
-
+        this.setColorPainel(ColorValue.BLUE.build());
 
         // Display Chronometer
         jlVisorChr = new JLabel();
@@ -112,11 +91,11 @@ public class ChrUI extends JFrame implements Serializable, ActionListener, Windo
         jtxtHistory = new JTextArea();
         jtxtHistory.setEditable(false);
         jtxtHistory.setFont(new Font("Normal", Font.PLAIN, 13));
-        jtxtHistory.setBackground(jp.getBackground());
+        jtxtHistory.setBackground(this.getColorPainel());
         jtxtHistory.setForeground(ColorValue.WHITE.build());
 
         JScrollPane scroll = new JScrollPane(jtxtHistory);
-        scroll.setBounds(10, 170, 254, 120);
+        scroll.setBounds(10, 210, 254, 120);
 
         // Button Action
         boundsPP = new Rectangle(170, 15, 70, 70);
@@ -125,20 +104,24 @@ public class ChrUI extends JFrame implements Serializable, ActionListener, Windo
                 StringValue.ST_BT_START.toString(), boundsPP);
         btAction.setFocusable(false);
         btAction.addActionListener(this);
-        // ....
+
+        /* Small Buttons */
+
+        // Height of Buttons
+        final int heightSmallButtons = 150;
 
         // Button Reset
         btReset = new JButton();
         this.setCustomButton(btReset, DrawableRes.IC_ACTION_RESET_NORMAL.build(), DrawableRes.IC_ACTION_RESET_PRESSED.build(),
-                StringValue.ST_BT_RESET.toString(), new Rectangle(40, 110, 30, 30));
+                StringValue.ST_BT_RESET.toString(), new Rectangle(40, heightSmallButtons, 30, 30));
         btReset.setFocusable(false);
         btReset.addActionListener(this);
         btReset.setEnabled(false);
 
-        // Button Add
+        // Button add
         btAddHistory = new JButton();
         this.setCustomButton(btAddHistory, DrawableRes.IC_ACTION_ADD_HISTORY_NORMAL.build(), DrawableRes.IC_ACTION_ADD_HISTORY_PRESSED.build(),
-                StringValue.ST_BT_ADD_HISTORY.toString(), new Rectangle(88, 110, 30, 30));
+                StringValue.ST_BT_ADD_HISTORY.toString(), new Rectangle(88, heightSmallButtons, 30, 30));
         btAddHistory.setFocusable(false);
         btAddHistory.addActionListener(this);
         btAddHistory.setEnabled(false);
@@ -146,32 +129,26 @@ public class ChrUI extends JFrame implements Serializable, ActionListener, Windo
         // Button settings
         btSettings = new JButton();
         this.setCustomButton(btSettings, DrawableRes.IC_ACTION_SETTINGS_NORMAL.build(), DrawableRes.IC_ACTION_SETTINGS_PRESSED.build(),
-                StringValue.ST_BT_SETTINGS.toString(), new Rectangle(140, 110, 30, 30));
+                StringValue.ST_BT_SETTINGS.toString(), new Rectangle(140, heightSmallButtons, 30, 30));
         btSettings.setFocusable(false);
         btSettings.addActionListener(this);
 
         // Button about
         btAbout = new JButton();
         this.setCustomButton(btAbout, DrawableRes.IC_ACTION_ABOUT_NORMAL.build(), DrawableRes.IC_ACTION_ABOUT_PRESSED.build(),
-                StringValue.ST_BT_ABOUT.toString(), new Rectangle(190, 110, 30, 30));
+                StringValue.ST_BT_ABOUT.toString(), new Rectangle(190, heightSmallButtons, 30, 30));
         btAbout.setFocusable(false);
         btAbout.addActionListener(this);
 
         // Button Clear
         btClear = new JButton();
         this.setCustomButton(btClear, DrawableRes.IC_ACTION_CLEAR_NORMAL.build(), DrawableRes.IC_ACTION_CLEAR_PRESSED.build(),
-                StringValue.ST_BT_CLEAR.toString(), new Rectangle(120, 310, 30, 30));
+                StringValue.ST_BT_CLEAR.toString(), new Rectangle(120, 325, 30, 30));
         btClear.setFocusable(false);
         btClear.addActionListener(this);
         btClear.setVisible(false);
         btClear.setEnabled(jtxtHistory.getText().equals("") ? false : true);
 
-        // JSeparator - Local only.
-        JSeparator js = new JSeparator(SwingConstants.HORIZONTAL);
-        jp.add(js);
-        js.setBounds(10, 100, 250, 3);
-        js = new JSeparator(SwingConstants.HORIZONTAL);
-        js.setBounds(10, 147, 250, 3);
 
         if (saved != null) {
             //...
@@ -179,17 +156,16 @@ public class ChrUI extends JFrame implements Serializable, ActionListener, Windo
         }
 
         // Add all componnts!
-        jp.add(js);
-        jp.add(btClear);
-        jp.add(btAbout);
-        jp.add(btSettings);
-        jp.add(btAddHistory);
-        jp.add(btReset);
-        jp.add(btAction);
-        jp.add(scroll);
-        jp.add(jlMsm);
-        jp.add(jlVisorChr);
-        this.add(jp);
+        this.addComponentInPanel(btClear);
+        this.addComponentInPanel(btAbout);
+        this.addComponentInPanel(btSettings);
+        this.addComponentInPanel(btAddHistory);
+        this.addComponentInPanel(btReset);
+        this.addComponentInPanel(btAction);
+        this.addComponentInPanel(scroll);
+        this.addComponentInPanel(jlMsm);
+        this.addComponentInPanel(jlVisorChr);
+
 
     }
 
@@ -305,45 +281,4 @@ public class ChrUI extends JFrame implements Serializable, ActionListener, Windo
 
         }
     }
-
-    @Override
-    public void windowActivated(WindowEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void windowClosed(WindowEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    public void windowClosing(WindowEvent e) {
-        getSystem.gc();
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void windowIconified(WindowEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void windowOpened(WindowEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
 }
