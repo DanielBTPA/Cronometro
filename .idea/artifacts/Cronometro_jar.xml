@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Cronometro:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Cronometro_jar</output-path>
+    <root id="archive" name="Cronometro.jar">
+      <element id="module-output" name="Cronometro" />
+    </root>
+  </artifact>
+</component>
