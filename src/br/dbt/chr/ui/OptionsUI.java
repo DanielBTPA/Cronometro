@@ -97,21 +97,29 @@ public class OptionsUI extends JDialog implements ActionListener, Serializable {
 
         // Theme Combobox
         if (cbTheme.getSelectedItem() == StringArrayValue.CB_ITEMS_THEME.getString(0)) {
-            c.setColorPainel(ColorValue.BLUE.build());
+            c.setBackgroundPrimary(ColorValue.BLUE_PRIMARY.build());
+            c.setBackgroundSecundary(ColorValue.BLUE_SECUNDARY.build());
         } else if (cbTheme.getSelectedItem() == StringArrayValue.CB_ITEMS_THEME.getString(1)) {
-            c.setColorPainel(ColorValue.RED.build());
+            c.setBackgroundPrimary(ColorValue.RED_PRIMARY.build());
+            c.setBackgroundSecundary(ColorValue.RED_SECUNDARY.build());
         } else if (cbTheme.getSelectedItem() == StringArrayValue.CB_ITEMS_THEME.getString(2)) {
-            c.setColorPainel(ColorValue.BLACK.build());
+            c.setBackgroundPrimary(ColorValue.GRAY_PRIMARY.build());
+            c.setBackgroundSecundary(ColorValue.GRAY_SECUNDARY.build());
         } else if (cbTheme.getSelectedItem() == StringArrayValue.CB_ITEMS_THEME.getString(3)) {
-            c.setColorPainel(ColorValue.GREEN.build());
+            c.setBackgroundPrimary(ColorValue.GREEN_PRIMARY.build());
+            c.setBackgroundSecundary(ColorValue.GREEN_SECUNDARY.build());
         } else if (cbTheme.getSelectedItem() == StringArrayValue.CB_ITEMS_THEME.getString(4)) {
-            c.setColorPainel(ColorValue.PINK.build());
+            c.setBackgroundPrimary(ColorValue.PINK_PRIMARY.build());
+            c.setBackgroundSecundary(ColorValue.PINK_SECUNDARY.build());
         } else if (cbTheme.getSelectedItem() == StringArrayValue.CB_ITEMS_THEME.getString(5)) {
-            c.setColorPainel(ColorValue.ORANGE.build());
+            c.setBackgroundPrimary(ColorValue.ORANGE_PRIMARY.build());
+            c.setBackgroundSecundary(ColorValue.ORANGE_SECUNDARY.build());
         } else if (cbTheme.getSelectedItem() == StringArrayValue.CB_ITEMS_THEME.getString(6)) {
-            c.setColorPainel(ColorValue.PURPLE.build());
+            c.setBackgroundPrimary(ColorValue.PURPLE_PRIMARY.build());
+            c.setBackgroundSecundary(ColorValue.PURPLE_SECUNDARY.build());
         } else if (cbTheme.getSelectedItem() == StringArrayValue.CB_ITEMS_THEME.getString(7)) {
-            c.setColorPainel(ColorValue.YELLOW.build());
+            c.setBackgroundPrimary(ColorValue.YELLOW_PRIMARY.build());
+            c.setBackgroundSecundary(ColorValue.YELLOW_SECUNDARY.build());
         }
 
         c.getConf = this;

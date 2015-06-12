@@ -3,7 +3,7 @@ package br.dbt.chr.ui;
 import br.dbt.chr.resources.DrawableRes;
 import br.dbt.chr.resources.values.ColorValue;
 import br.dbt.chr.resources.values.StringValue;
-import br.dbt.chr.ui.context.Chronometer;
+import br.dbt.chr.ui.context.MaterialLookView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ChrUI extends Chronometer implements Serializable, ActionListener,
+public class ChrUI extends MaterialLookView implements Serializable, ActionListener,
         Runnable {
 
     /**
@@ -23,7 +23,7 @@ public class ChrUI extends Chronometer implements Serializable, ActionListener,
     private static final long serialVersionUID = -6540072618399857687L;
 
 
-    public transient JButton btAction, btReset, btAddHistory, btSettings,
+    private transient JButton btAction, btReset, btAddHistory, btSettings,
             btAbout;
 
     public JButton btClear;
@@ -35,24 +35,20 @@ public class ChrUI extends Chronometer implements Serializable, ActionListener,
     public OptionsUI getConf;
 
 
-
-
     // millsecounds, secounds, minutes
     private transient int mseg = 0, seg = 0, min = 0;
     // string ms, sec, min
     private transient String stMs = "00", stS = "00",
             stMin = "00";
-    private transient Runtime getSystem = Runtime.getRuntime();
-    // Size button action
-    private Rectangle boundsPP;
+
     private transient Thread threadChr;
     // Thread on or off.
-    private volatile transient boolean activeThread = false,
+    public static volatile boolean activeThread = false,
             pausedThread = false;
 
     public ChrUI() {
 
-        super(StringValue.ST_TITLE.toString());
+        super(StringValue.ST_TITLE.toString(), DrawableRes.IC_LAUNCHER.build());
 
         // LookAndFeel
         try {
@@ -73,13 +69,20 @@ public class ChrUI extends Chronometer implements Serializable, ActionListener,
     // Initialize Objects
     public void onInit(ChrUI saved) {
 
-        this.setColorPainel(ColorValue.BLUE.build());
+
+        // Conf of windows and colors default of Chronomter
+        this.setBackgroundPrimary(ColorValue.BLUE_PRIMARY.build());
+        this.setBackgroundSecundary(ColorValue.BLUE_SECUNDARY.build());
+        this.setSize(275, 400);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
+        this.setAlwaysOnTop(false);
 
         // Display Chronometer
         jlVisorChr = new JLabel();
         jlVisorChr.setBounds(30, 20, 105, 40);
         jlVisorChr.setText(StringValue.ST_CONT_0.toString());
-        jlVisorChr.setFont(new Font("Font1", Font.TYPE1_FONT, 25));
+        jlVisorChr.setFont(new Font("Arial", Font.TYPE1_FONT, 25));
         jlVisorChr.setForeground(Color.white);
 
         // Information (Mil, Sec, Min)
@@ -93,57 +96,49 @@ public class ChrUI extends Chronometer implements Serializable, ActionListener,
         jtxtHistory.setFont(new Font("Normal", Font.PLAIN, 13));
         jtxtHistory.setBackground(this.getColorPainel());
         jtxtHistory.setForeground(ColorValue.WHITE.build());
-
         JScrollPane scroll = new JScrollPane(jtxtHistory);
-        scroll.setBounds(10, 210, 254, 120);
+        scroll.setBounds(5, 180, 254, 120);
 
         // Button Action
-        boundsPP = new Rectangle(170, 15, 70, 70);
-        btAction = new JButton();
-        this.setCustomButton(btAction, DrawableRes.IC_ACTION_PLAY_NORMAL.build(), DrawableRes.IC_ACTION_PLAY_PRESSED.build(),
-                StringValue.ST_BT_START.toString(), boundsPP);
+        btAction = setCustomButton(new JButton(), StringValue.ST_BT_START.toString(), DrawableRes.IC_ACTION_PLAY_NORMAL.build(), DrawableRes.IC_ACTION_PLAY_PRESSED.build());
+        btAction.setBounds(170, 15, 70, 70);
         btAction.setFocusable(false);
         btAction.addActionListener(this);
 
         /* Small Buttons */
 
         // Height of Buttons
-        final int heightSmallButtons = 150;
+        final int heightSmallButtons = 110;
 
         // Button Reset
-        btReset = new JButton();
-        this.setCustomButton(btReset, DrawableRes.IC_ACTION_RESET_NORMAL.build(), DrawableRes.IC_ACTION_RESET_PRESSED.build(),
-                StringValue.ST_BT_RESET.toString(), new Rectangle(40, heightSmallButtons, 30, 30));
+        btReset = setCustomButton(new JButton(), StringValue.ST_BT_RESET.toString(), DrawableRes.IC_ACTION_RESET_NORMAL.build(), DrawableRes.IC_ACTION_RESET_PRESSED.build());
+        btReset.setBounds(40, heightSmallButtons, 30, 30);
         btReset.setFocusable(false);
         btReset.addActionListener(this);
         btReset.setEnabled(false);
 
         // Button add
-        btAddHistory = new JButton();
-        this.setCustomButton(btAddHistory, DrawableRes.IC_ACTION_ADD_HISTORY_NORMAL.build(), DrawableRes.IC_ACTION_ADD_HISTORY_PRESSED.build(),
-                StringValue.ST_BT_ADD_HISTORY.toString(), new Rectangle(88, heightSmallButtons, 30, 30));
+        btAddHistory = setCustomButton(new JButton(), StringValue.ST_BT_ADD_HISTORY.toString(), DrawableRes.IC_ACTION_ADD_HISTORY_NORMAL.build(), DrawableRes.IC_ACTION_ADD_HISTORY_PRESSED.build());
+        btAddHistory.setBounds(90, heightSmallButtons, 30, 30);
         btAddHistory.setFocusable(false);
         btAddHistory.addActionListener(this);
         btAddHistory.setEnabled(false);
 
         // Button settings
-        btSettings = new JButton();
-        this.setCustomButton(btSettings, DrawableRes.IC_ACTION_SETTINGS_NORMAL.build(), DrawableRes.IC_ACTION_SETTINGS_PRESSED.build(),
-                StringValue.ST_BT_SETTINGS.toString(), new Rectangle(140, heightSmallButtons, 30, 30));
+        btSettings = setCustomButton(new JButton(), StringValue.ST_BT_SETTINGS.toString(), DrawableRes.IC_ACTION_SETTINGS_NORMAL.build(), DrawableRes.IC_ACTION_SETTINGS_PRESSED.build());
+        btSettings.setBounds(140, heightSmallButtons, 30, 30);
         btSettings.setFocusable(false);
         btSettings.addActionListener(this);
 
         // Button about
-        btAbout = new JButton();
-        this.setCustomButton(btAbout, DrawableRes.IC_ACTION_ABOUT_NORMAL.build(), DrawableRes.IC_ACTION_ABOUT_PRESSED.build(),
-                StringValue.ST_BT_ABOUT.toString(), new Rectangle(190, heightSmallButtons, 30, 30));
+        btAbout = setCustomButton(new JButton(), StringValue.ST_BT_ABOUT.toString(), DrawableRes.IC_ACTION_ABOUT_NORMAL.build(), DrawableRes.IC_ACTION_ABOUT_PRESSED.build());
+        btAbout.setBounds(190, heightSmallButtons, 30, 30);
         btAbout.setFocusable(false);
         btAbout.addActionListener(this);
 
         // Button Clear
-        btClear = new JButton();
-        this.setCustomButton(btClear, DrawableRes.IC_ACTION_CLEAR_NORMAL.build(), DrawableRes.IC_ACTION_CLEAR_PRESSED.build(),
-                StringValue.ST_BT_CLEAR.toString(), new Rectangle(120, 325, 30, 30));
+        btClear = setCustomButton(new JButton(), StringValue.ST_BT_CLEAR.toString(), DrawableRes.IC_ACTION_CLEAR_NORMAL.build(), DrawableRes.IC_ACTION_CLEAR_PRESSED.build());
+        btClear.setBounds(120, 313, 30, 30);
         btClear.setFocusable(false);
         btClear.addActionListener(this);
         btClear.setVisible(false);
@@ -173,8 +168,7 @@ public class ChrUI extends Chronometer implements Serializable, ActionListener,
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btAction) {
             if (btAction.getName().equals(StringValue.ST_BT_START.toString())) {
-                this.setCustomButton(btAction, DrawableRes.IC_ACTION_PAUSE_NORMAL.build(), DrawableRes.IC_ACTION_PAUSE_PRESSED.build(),
-                        StringValue.ST_BT_PAUSE.toString(), boundsPP);
+                btAction = setCustomButton(btAction, StringValue.ST_BT_PAUSE.toString(), DrawableRes.IC_ACTION_PAUSE_NORMAL.build(), DrawableRes.IC_ACTION_PAUSE_PRESSED.build());
                 activeThread = true;
                 pausedThread = false;
                 btReset.setEnabled(false);
@@ -182,15 +176,13 @@ public class ChrUI extends Chronometer implements Serializable, ActionListener,
                 threadChr = new Thread(this, "Chr");
                 threadChr.start();
             } else {
-                this.setCustomButton(btAction, DrawableRes.IC_ACTION_PLAY_NORMAL.build(), DrawableRes.IC_ACTION_PLAY_PRESSED.build(),
-                        StringValue.ST_BT_START.toString(), boundsPP);
+                btAction = setCustomButton(btAction, StringValue.ST_BT_START.toString(), DrawableRes.IC_ACTION_PLAY_NORMAL.build(), DrawableRes.IC_ACTION_PLAY_PRESSED.build());
                 activeThread = false;
                 pausedThread = true;
                 threadChr.interrupt();
                 threadChr = null;
                 btReset.setEnabled(true);
                 btAddHistory.setEnabled(false);
-                getSystem.gc();
             }
         } else if (e.getSource() == btReset) {
             mseg = 0;
@@ -241,25 +233,25 @@ public class ChrUI extends Chronometer implements Serializable, ActionListener,
                     if (seg == 60) {
                         seg = 0;
                         min++;
-                        ;
+
                     }
                 }
                 if (min >= 10) {
-                    stMin = String.valueOf(min);
+                    stMin = "" + min;
                 } else {
-                    stMin = "0" + String.valueOf(min);
+                    stMin = "0" + min;
                 }
 
                 if (seg >= 10) {
-                    stS = String.valueOf(seg);
+                    stS = "" + seg;
                 } else {
-                    stS = "0" + String.valueOf(seg);
+                    stS = "0" + seg;
                 }
 
                 if (mseg >= 10) {
-                    stMs = String.valueOf(mseg);
+                    stMs = "" + mseg;
                 } else {
-                    stMs = "0" + String.valueOf(mseg);
+                    stMs = "0" + mseg;
                 }
 
             } catch (Exception e) {

@@ -37,7 +37,7 @@ public enum StringValue {
 
     public static enum StringArrayValue {
 
-        CB_ITEMS_THEME("Azul", "Vermelho", "Dark", "Verde", "Pink", "Laranja", "Purple", "Amarelo");
+        CB_ITEMS_THEME("Azul", "Vermelho", "Gray", "Verde", "Pink", "Laranja", "Purple", "Amarelo");
 
         private String[] getValue;
 

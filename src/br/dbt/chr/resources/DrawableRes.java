@@ -17,7 +17,14 @@ public enum DrawableRes {
     // Icons Default
     ABOUT_LOGO("br/dbt/chr/resources/drawable/images/about_logo.jpg", 305, 295),
     IC_LAUNCHER("br/dbt/chr/resources/drawable/ic_launcher.png", null),
-    IC_LAUNCHER_SMALL("br/dbt/chr/resources/drawable/ic_launcher.png", 15, 15),
+
+    // Icons action close and minimize
+    IC_ACTION_BAR_CLOSE_NORMAL("br/dbt/chr/resources/drawable/ic_action_bar_close_normal.png", 20, 20),
+    IC_ACTION_BAR_CLOSE_SELECTED("br/dbt/chr/resources/drawable/ic_action_bar_close_selected.png", 20, 20),
+    IC_ACTION_BAR_CLOSE_PRESSED("br/dbt/chr/resources/drawable/ic_action_bar_close_pressed.png", 20, 20),
+    IC_ACTION_BAR_MINIMIZE_NORMAL("br/dbt/chr/resources/drawable/ic_action_bar_minimize_normal.png", 20, 20),
+    IC_ACTION_BAR_MINIMIZE_SELECTED("br/dbt/chr/resources/drawable/ic_action_bar_minimize_selected.png", 20, 20),
+    IC_ACTION_BAR_MINIMIZE_PRESSED("br/dbt/chr/resources/drawable/ic_action_bar_minimize_pressed.png", 20, 20),
 
     // Icons Normal
     IC_ACTION_PLAY_NORMAL("br/dbt/chr/resources/drawable/ic_action_play_normal.png", 75, 75),
@@ -38,20 +45,24 @@ public enum DrawableRes {
     IC_ACTION_RESET_PRESSED("br/dbt/chr/resources/drawable/ic_action_reset_pressed.png", 30, 30);
 
 
+    // Constantes
+    private static final int HINTS = 100;
+
     // Vareaveis para recuperação de valores!
     private URL getPath;
-    private int getX, getY;
+    private int getWidth, getHeight;
 
     private DrawableRes(String resDraw, int... size) {
         getPath = getClass().getClassLoader().getResource(resDraw);
 
         if (size != null) {
-            getX = size[0];
-            getY = size[1];
+            getWidth = size[0];
+            getHeight = size[1];
         }
     }
 
-    /** Cria o recurso na memoria e retorna a imagem criada de acordo com as constantes!
+    /**
+     * Cria o recurso na memoria e retorna a imagem criada de acordo com as constantes!
      */
 
     public Image build() {
@@ -62,14 +73,26 @@ public enum DrawableRes {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if ((getX != 0) && (getY != 0)) {
-                building = ic.getScaledInstance(getX,
-                        getX, 100);
+            if ((getWidth != 0) && (getHeight != 0)) {
+                building = ic.getScaledInstance(getWidth,
+                        getHeight, 100);
             } else {
                 building = Toolkit.getDefaultToolkit().getImage(getPath);
             }
         }
         return building;
+    }
+
+    public Image getImageScaled(int getWidth, int getHeight) {
+        Image img = null;
+        try {
+            BufferedImage buf = ImageIO.read(getPath);
+            img = buf.getScaledInstance(getWidth, getHeight, HINTS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return img;
     }
 
 
