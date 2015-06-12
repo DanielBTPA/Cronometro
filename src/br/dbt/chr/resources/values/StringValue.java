@@ -21,7 +21,7 @@ public enum StringValue {
     ST_PAUSED_SPACES("    :    :   "),
     ST_LB_ADD_TWO_PLAN("Adicionar ao segundo plano"),
     ST_LB_SHOW_CLEAR("Adicionar botão limpar"),
-    ST_LB_THEME("Cores de fundo:");
+    ST_LB_THEME("Cores de fundo e janela:");
 
 
     private String getValue;
