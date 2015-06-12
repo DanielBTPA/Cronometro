@@ -53,7 +53,7 @@ public class OptionsUI extends JDialog implements ActionListener, Serializable {
 
         // Themes
         jlTheme = new JLabel(StringValue.ST_LB_THEME.toString());
-        jlTheme.setBounds(10, 100, 85, 20);
+        jlTheme.setBounds(10, 100, 120, 20);
 
 
         if (o == null) {
