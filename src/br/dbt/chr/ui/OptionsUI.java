@@ -6,9 +6,10 @@ import br.dbt.chr.resources.values.StringValue.StringArrayValue;
 import br.dbt.chr.ui.context.MaterialLookView;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
 public class OptionsUI extends MaterialLookView implements ActionListener, Serializable {
@@ -25,10 +26,14 @@ public class OptionsUI extends MaterialLookView implements ActionListener, Seria
     private transient JButton btOk, btApply;
     private JComboBox<String> cbTheme;
 
+    public static boolean isVisible = false;
+
     public OptionsUI(ChrUI c, OptionsUI o) {
 
         // Initialize Objects
         super(StringValue.ST_BT_SETTINGS.toString(),300, 300);
+
+        isVisible = true;
 
         // Reference of object type ChrUI
         this.c = c;
@@ -40,9 +45,16 @@ public class OptionsUI extends MaterialLookView implements ActionListener, Seria
         setResizable(false);
         setLocationRelativeTo(c);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLayout(null);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                super.windowClosed(e);
+                isVisible = false;
 
-        revalidate();
+                System.out.println(isVisible);
+            }
+        });
+        setLayout(null);
 
         // Button - Ok
         btOk = new JButton(StringValue.ST_BT_OK.toString());

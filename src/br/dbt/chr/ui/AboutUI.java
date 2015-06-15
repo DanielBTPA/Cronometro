@@ -1,10 +1,8 @@
 package br.dbt.chr.ui;
 
-import br.dbt.chr.resources.DrawableRes;
 import br.dbt.chr.resources.values.StringValue;
 import br.dbt.chr.ui.context.MaterialLookView;
 
-import javax.swing.*;
 import java.io.Serializable;
 
 public class AboutUI extends MaterialLookView implements Serializable {

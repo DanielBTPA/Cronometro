@@ -1,6 +1,4 @@
-import br.dbt.chr.resources.DrawableRes;
 import br.dbt.chr.ui.ChrUI;
-import br.dbt.chr.ui.context.MaterialLookView;
 
 import javax.swing.*;
 
@@ -16,8 +14,6 @@ public class Launcher {
                 c.setVisible(true);
             }
         });
-
-
     }
 
 }

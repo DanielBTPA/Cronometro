@@ -10,9 +10,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class ChrUI extends MaterialLookView implements Serializable, ActionListener,
         Runnable {
@@ -182,14 +181,14 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
         if (e.getSource() == btAction) {
             if (btAction.getName().equals(StringValue.ST_BT_START.toString())) {
                 btAction = setCustomButton(btAction, StringValue.ST_BT_PAUSE.toString(), DrawableRes.IC_ACTION_PAUSE_NORMAL.build(), DrawableRes.IC_ACTION_PAUSE_PRESSED.build());
-                this.setStart(true);
+                ChrUI.setStart(true);
                 btReset.setEnabled(false);
                 btAddHistory.setEnabled(true);
                 threadChr = new Thread(this, "Chr");
                 threadChr.start();
             } else {
                 btAction = setCustomButton(btAction, StringValue.ST_BT_START.toString(), DrawableRes.IC_ACTION_PLAY_NORMAL.build(), DrawableRes.IC_ACTION_PLAY_PRESSED.build());
-                this.setStart(false);
+                ChrUI.setStart(false);
                 threadChr.interrupt();
                 threadChr = null;
                 btReset.setEnabled(true);
@@ -216,7 +215,15 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
 
             }
         } else if (e.getSource() == btSettings) {
-            getConf = new OptionsUI(this, getConf != null ? getConf : null);
+            if (!OptionsUI.isVisible) {
+                if (getConf == null) {
+                    getConf = new OptionsUI(this, null);
+                } else {
+                    getConf = new OptionsUI(this, getConf);
+                }
+            } else {
+                getConf.requestFocus();
+            }
         } else if (e.getSource() == btAbout) {
             new AboutUI(this);
         } else if (e.getSource() == btClear) {
@@ -226,10 +233,10 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
     }
 
     // Get a hours of system.
-    private String getHours() {
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-        Date date = new Date();
-        return dateFormat.format(date);
+    public String getHours() {
+        Calendar c = GregorianCalendar.getInstance();
+        String get = "("+c.get(GregorianCalendar.HOUR_OF_DAY) + ":" + c.get(GregorianCalendar.MINUTE) + ":" + c.get(GregorianCalendar.SECOND)+")";
+        return get;
     }
 
     @Override
