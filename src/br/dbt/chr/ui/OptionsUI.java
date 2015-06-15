@@ -3,13 +3,15 @@ package br.dbt.chr.ui;
 import br.dbt.chr.resources.values.ColorValue;
 import br.dbt.chr.resources.values.StringValue;
 import br.dbt.chr.resources.values.StringValue.StringArrayValue;
+import br.dbt.chr.ui.context.MaterialLookView;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 
-public class OptionsUI extends JDialog implements ActionListener, Serializable {
+public class OptionsUI extends MaterialLookView implements ActionListener, Serializable {
 
     /**
      *
@@ -26,18 +28,21 @@ public class OptionsUI extends JDialog implements ActionListener, Serializable {
     public OptionsUI(ChrUI c, OptionsUI o) {
 
         // Initialize Objects
-        super(c, StringValue.ST_BT_SETTINGS.toString(), true);
+        super(StringValue.ST_BT_SETTINGS.toString(),300, 300);
 
         // Reference of object type ChrUI
         this.c = c;
 
+        initFrame(Type.UTILITY);
+
         // Dialog Settings
-        setType(Type.UTILITY);
         setSize(300, 300);
         setResizable(false);
         setLocationRelativeTo(c);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(null);
+
+        revalidate();
 
         // Button - Ok
         btOk = new JButton(StringValue.ST_BT_OK.toString());

@@ -43,12 +43,12 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
 
     private transient Thread threadChr;
     // Thread on or off.
-    public static volatile boolean activeThread = false,
+    private static volatile boolean activeThread = false,
             pausedThread = false;
 
     public ChrUI() {
 
-        super(StringValue.ST_TITLE.toString(), DrawableRes.IC_LAUNCHER.build());
+        super(StringValue.ST_TITLE.toString(), DrawableRes.IC_LAUNCHER.build(), 275, 400);
 
         // LookAndFeel
         try {
@@ -71,9 +71,10 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
 
 
         // Conf of windows and colors default of Chronomter
+        initFrame(Type.NORMAL);
+
         this.setBackgroundPrimary(ColorValue.BLUE_PRIMARY.build());
         this.setBackgroundSecundary(ColorValue.BLUE_SECUNDARY.build());
-        this.setSize(275, 400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setAlwaysOnTop(false);
@@ -101,7 +102,7 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
 
         // Button Action
         btAction = setCustomButton(new JButton(), StringValue.ST_BT_START.toString(), DrawableRes.IC_ACTION_PLAY_NORMAL.build(), DrawableRes.IC_ACTION_PLAY_PRESSED.build());
-        btAction.setBounds(170, 15, 70, 70);
+        btAction.setBounds(170, 15, 75, 75);
         btAction.setFocusable(false);
         btAction.addActionListener(this);
 
@@ -164,21 +165,31 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
 
     }
 
+    public static boolean setStart(boolean start) {
+        if (start) {
+            activeThread = true;
+            pausedThread = false;
+        } else {
+            activeThread = false;
+            pausedThread = true;
+        }
+
+        return start;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btAction) {
             if (btAction.getName().equals(StringValue.ST_BT_START.toString())) {
                 btAction = setCustomButton(btAction, StringValue.ST_BT_PAUSE.toString(), DrawableRes.IC_ACTION_PAUSE_NORMAL.build(), DrawableRes.IC_ACTION_PAUSE_PRESSED.build());
-                activeThread = true;
-                pausedThread = false;
+                this.setStart(true);
                 btReset.setEnabled(false);
                 btAddHistory.setEnabled(true);
                 threadChr = new Thread(this, "Chr");
                 threadChr.start();
             } else {
                 btAction = setCustomButton(btAction, StringValue.ST_BT_START.toString(), DrawableRes.IC_ACTION_PLAY_NORMAL.build(), DrawableRes.IC_ACTION_PLAY_PRESSED.build());
-                activeThread = false;
-                pausedThread = true;
+                this.setStart(false);
                 threadChr.interrupt();
                 threadChr = null;
                 btReset.setEnabled(true);

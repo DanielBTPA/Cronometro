@@ -5,8 +5,6 @@ import br.dbt.chr.ui.ChrUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -20,14 +18,10 @@ public class MaterialLookView extends JFrame {
 
     // Painel Defaul
     private JPanel jp;
+    private JButton btClose, btMin;
 
-    // Buttons Minimize and CLose
-    private JButton btMinimize, btClose;
-
-
-    public MaterialLookView() {
-        super();
-        initFrame();
+    public MaterialLookView(int width, int height) {
+        super.setSize(width, height);
     }
 
     /**
@@ -37,10 +31,10 @@ public class MaterialLookView extends JFrame {
      * @param iconFrame - Icon of Aplication
      */
 
-    public MaterialLookView(String title, Image iconFrame) {
+    public MaterialLookView(String title, Image iconFrame, int width, int height) {
         super(title);
         super.setIconImage(iconFrame);
-        initFrame();
+        super.setSize(width, height);
     }
 
     /**
@@ -49,17 +43,19 @@ public class MaterialLookView extends JFrame {
      * @param title - Title of window
      */
 
-    public MaterialLookView(String title) {
+    public MaterialLookView(String title, int width, int height) {
         super(title);
-        initFrame();
+        super.setSize(width, height);
     }
 
     // initialize componntes and frame
-    private void initFrame() {
+    protected void initFrame(Type type) {
 
         /* Frame (Janela) */
 
-        // Icon and Title
+        // Initialize Buttons Close and minimize
+        this.setType(type);
+
 
         // Conf Frame
         this.setUndecorated(true);
@@ -82,42 +78,16 @@ public class MaterialLookView extends JFrame {
             rootPane.add(titleFrame);
         }
 
-        // Buttton Close
-        btClose = this.setCustomButton(new JButton(), "Fechar", DrawableRes.IC_ACTION_BAR_CLOSE_NORMAL.build(),
-                DrawableRes.IC_ACTION_BAR_CLOSE_PRESSED.build(), DrawableRes.IC_ACTION_BAR_CLOSE_SELECTED.build());
-        btClose.setBounds((getBounds().x - 4), 8, 19, 19);
-        btClose.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ChrUI.activeThread = false;
-                ChrUI.pausedThread = false;
-                dispose();
-            }
-        });
-        rootPane.add(btClose);
-
-        // Buttton Min
-        btMinimize = this.setCustomButton(new JButton(), "Minimizar", DrawableRes.IC_ACTION_BAR_MINIMIZE_NORMAL.build(),
-                DrawableRes.IC_ACTION_BAR_MINIMIZE_PRESSED.build(), DrawableRes.IC_ACTION_BAR_MINIMIZE_SELECTED.build());
-        btMinimize.setBounds((getBounds().x - 27), 8, 19, 19);
-        btMinimize.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setExtendedState(ICONIFIED);
-            }
-        });
-        rootPane.add(btMinimize);
-
         // Pane Default
         jp = new JPanel();
         jp.setLayout(null);
         this.add(jp);
 
-        // Colors Default
+        // Cores padrões da janela
         this.setBackgroundPrimary(new Color(194, 194, 194));
         this.setBackgroundSecundary(new Color(139, 139, 139));
 
-        // Listenr in Window
+        // Ouvinte local do mouse (Arrastar a janela)
         MouseAdapter ma = new MouseAdapter() {
             int lastX, lastY;
             boolean located;
@@ -154,9 +124,53 @@ public class MaterialLookView extends JFrame {
         this.addMouseMotionListener(ma);
     }
 
-    // Define the colors of borders
-    public void setBackgroundSecundary(Color bgColor) {
-        setBorderInFrame(bgColor, 35, 6, 6, 6);
+    protected void initButtonsOfWindow() {
+
+        if (getType() == Type.NORMAL) {
+            // Buttton Min
+            btMin = this.setCustomButton(btMin == null ? new JButton() : btMin, "Minimizar", DrawableRes.IC_ACTION_BAR_MINIMIZE_NORMAL.build(),
+                    DrawableRes.IC_ACTION_BAR_MINIMIZE_PRESSED.build(), DrawableRes.IC_ACTION_BAR_MINIMIZE_SELECTED.build());
+            btMin.setBounds((getWidth() - 47), 8, 19, 19);
+            btMin.setFocusable(false);
+            btMin.addActionListener((e) -> {
+                setExtendedState(ICONIFIED);
+            });
+            rootPane.add(btMin);
+            // Buttton Close
+            btClose = this.setCustomButton(btClose == null ? new JButton() : btClose, "Fechar", DrawableRes.IC_ACTION_BAR_CLOSE_NORMAL.build(),
+                    DrawableRes.IC_ACTION_BAR_CLOSE_PRESSED.build(), DrawableRes.IC_ACTION_BAR_CLOSE_SELECTED.build());
+            btClose.setBounds((getWidth() - 25), 8, 19, 19);
+            btClose.setFocusable(false);
+            btClose.addActionListener((e) -> {
+                if (getType() != Type.UTILITY) {
+                    ChrUI.setStart(false);
+                    System.exit(0);
+                }
+                dispose();
+            });
+            rootPane.add(btClose);
+        } else if (getType() == Type.UTILITY) {
+            // Buttton Close
+            btClose = this.setCustomButton(btClose == null ? new JButton() : btClose, "Fechar", DrawableRes.IC_ACTION_BAR_CLOSE_NORMAL.build(),
+                    DrawableRes.IC_ACTION_BAR_CLOSE_PRESSED.build(), DrawableRes.IC_ACTION_BAR_CLOSE_SELECTED.build());
+            btClose.setBounds((getWidth() - 25), 8, 19, 19);
+            btClose.setFocusable(false);
+            btClose.addActionListener((e) -> {
+                if (getType() != Type.UTILITY) {
+                    ChrUI.setStart(false);
+                    System.exit(0);
+                }
+                dispose();
+            });
+            rootPane.add(btClose);
+        }
+
+    }
+
+    @Override
+    public void setType(Type type) {
+        super.setType(type);
+        initButtonsOfWindow();
     }
 
     // Define the borders and colors of window
@@ -174,6 +188,11 @@ public class MaterialLookView extends JFrame {
         jp.setBackground(bgColor);
     }
 
+    // Define the colors of borders
+    public void setBackgroundSecundary(Color bgColor) {
+        setBorderInFrame(bgColor, 35, 6, 6, 6);
+    }
+
     public Color getColorPainel() {
         return jp.getBackground();
     }
@@ -181,25 +200,25 @@ public class MaterialLookView extends JFrame {
     // Custom button
     protected JButton setCustomButton(JButton source, String name, Image icNormal, Image icPressed) {
 
-        return buildButton(source, name, icNormal, icPressed, null , null);
+        return buildButton(source, name, icNormal, icPressed, null, null);
     }
 
     // Custom button
     protected JButton setCustomButton(JButton source, String name, Image icNormal, Image icPressed, Image icSelected) {
 
-        return buildButton(source, name, icNormal, icPressed, icSelected , null);
+        return buildButton(source, name, icNormal, icPressed, icSelected, null);
     }
 
     // Custom button
     protected JButton setCustomButton(JButton source, String name, Image icNormal, Image icPressed, Rectangle bounds) {
 
-        return buildButton(source, name, icNormal, icPressed, null , bounds);
+        return buildButton(source, name, icNormal, icPressed, null, bounds);
     }
 
     // Custom button
     protected JButton setCustomButton(JButton source, String name, Image icNormal, Image icPressed, Image icSelected, Rectangle bounds) {
 
-        return buildButton(source, name, icNormal, icPressed, icSelected , bounds);
+        return buildButton(source, name, icNormal, icPressed, icSelected, bounds);
     }
 
     private JButton buildButton(JButton source, String name, Image icNormal, Image icPressed, Image icSelected, Rectangle bounds) {
@@ -226,4 +245,5 @@ public class MaterialLookView extends JFrame {
         source.setToolTipText(name);
         return source;
     }
+
 }

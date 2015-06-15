@@ -2,11 +2,12 @@ package br.dbt.chr.ui;
 
 import br.dbt.chr.resources.DrawableRes;
 import br.dbt.chr.resources.values.StringValue;
+import br.dbt.chr.ui.context.MaterialLookView;
 
 import javax.swing.*;
 import java.io.Serializable;
 
-public class AboutUI extends JDialog implements Serializable {
+public class AboutUI extends MaterialLookView implements Serializable {
 
     /**
      *
@@ -15,7 +16,9 @@ public class AboutUI extends JDialog implements Serializable {
 
 
     public AboutUI(ChrUI c) {
-        super(c, StringValue.ST_BT_ABOUT.toString(), true);
+        super(StringValue.ST_BT_ABOUT.toString(), 300,300);
+
+        initFrame(Type.UTILITY);
 
         // ...
 

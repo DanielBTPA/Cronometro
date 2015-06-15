@@ -1,12 +1,13 @@
+import br.dbt.chr.resources.DrawableRes;
 import br.dbt.chr.ui.ChrUI;
+import br.dbt.chr.ui.context.MaterialLookView;
 
 import javax.swing.*;
-import java.awt.*;
-
 
 public class Launcher {
 
     public static void main(String[] args) {
+
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -15,6 +16,7 @@ public class Launcher {
                 c.setVisible(true);
             }
         });
+
 
     }
 
