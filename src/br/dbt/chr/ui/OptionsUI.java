@@ -6,6 +6,7 @@ import br.dbt.chr.resources.values.StringValue.StringArrayValue;
 import br.dbt.chr.ui.context.MaterialLookView;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -18,20 +19,17 @@ public class OptionsUI extends MaterialLookView implements ActionListener, Seria
      *
      */
     private static final long serialVersionUID = 6528188934016921309L;
-
+    public static boolean isVisible = false;
     private transient ChrUI c;
-
     private JCheckBox chkTwoPlan, chkShowButtonClear;
     private transient JLabel jlOptions, jlTheme;
     private transient JButton btOk, btApply;
     private JComboBox<String> cbTheme;
 
-    public static boolean isVisible = false;
-
     public OptionsUI(ChrUI c, OptionsUI o) {
 
         // Initialize Objects
-        super(StringValue.ST_BT_SETTINGS.toString(),300, 300);
+        super(StringValue.ST_BT_SETTINGS.toString(), 300, 300);
 
         isVisible = true;
 
@@ -54,7 +52,10 @@ public class OptionsUI extends MaterialLookView implements ActionListener, Seria
                 System.out.println(isVisible);
             }
         });
-        setLayout(null);
+
+        this.setBackgroundPrimary(Color.WHITE);
+        this.setBackgroundSecundary(c.getBackgroundSecundary());
+
 
         // Button - Ok
         btOk = new JButton(StringValue.ST_BT_OK.toString());
@@ -95,12 +96,12 @@ public class OptionsUI extends MaterialLookView implements ActionListener, Seria
             chkTwoPlan = o.chkTwoPlan;
         }
 
-        add(btOk);
-        add(btApply);
-        add(jlTheme);
-        add(cbTheme);
-        add(chkShowButtonClear);
-        add(chkTwoPlan);
+        addComponentInPanel(btOk);
+        addComponentInPanel(btApply);
+        addComponentInPanel(jlTheme);
+        addComponentInPanel(cbTheme);
+        addComponentInPanel(chkShowButtonClear);
+        addComponentInPanel(chkTwoPlan);
 
 
         // Initialize interface

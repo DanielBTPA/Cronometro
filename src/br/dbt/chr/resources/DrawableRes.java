@@ -13,9 +13,20 @@ import java.net.URL;
  */
 
 public enum DrawableRes {
+	
+	//
+	
+	// Icon github
+	IC_ACTION_OPEN_GIT_NORMAL("br/dbt/chr/resources/drawable/ic_action_open_git_normal.png", 30, 30),
+    IC_ACTION_OPEN_GIT_PRESSED("br/dbt/chr/resources/drawable/ic_action_open_git_pressed.png", 30, 30),
+    IC_ACTION_OPEN_GIT_SELECTED("br/dbt/chr/resources/drawable/ic_action_open_git_selected.png", 30, 30),
 
-    // Icons Default
-    ABOUT_LOGO("br/dbt/chr/resources/drawable/images/about_logo.jpg", 305, 295),
+    // Icons Logo
+	LOGO("br/dbt/chr/resources/drawable/image/logo.png", 300, 230),
+    LOGO_1("br/dbt/chr/resources/drawable/image/logo_1.png", 160, 160),
+    LOGO_2("br/dbt/chr/resources/drawable/image/logo_2.png", 160, 160),
+
+    // Icon Launcher
     IC_LAUNCHER("br/dbt/chr/resources/drawable/ic_launcher.png", null),
 
     // Icons action close and minimize

@@ -24,6 +24,7 @@ public enum StringValue {
     ST_LB_THEME("Cores de fundo e janela:");
 
 
+
     private String getValue;
 
     private StringValue(String value) {

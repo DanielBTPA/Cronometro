@@ -17,14 +17,17 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
         Runnable {
 
     /**
-     * Java JDK 1.7/SE 1.8
+     * Java JDK 1.8/SE 1.8
      */
+
     private static final long serialVersionUID = -6540072618399857687L;
 
+    // Controle de versão do aplicativo
+    public static final double VERSION_APP = 1.2;
 
-    private transient JButton btAction, btReset, btAddHistory, btSettings,
-            btAbout;
-
+    // Controle da thread
+    private static volatile boolean activeThread = false,
+            pausedThread = false;
     public JButton btClear;
 
     public transient JTextArea jtxtHistory;
@@ -32,18 +35,15 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
     public transient JLabel jlVisorChr, jlMsm;
 
     public OptionsUI getConf;
-
-
+    public AboutUI about;
+    private transient JButton btAction, btReset, btAddHistory, btSettings,
+            btAbout;
     // millsecounds, secounds, minutes
     private transient int mseg = 0, seg = 0, min = 0;
     // string ms, sec, min
     private transient String stMs = "00", stS = "00",
             stMin = "00";
-
     private transient Thread threadChr;
-    // Thread on or off.
-    private static volatile boolean activeThread = false,
-            pausedThread = false;
 
     public ChrUI() {
 
@@ -63,6 +63,18 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean setStart(boolean start) {
+        if (start) {
+            activeThread = true;
+            pausedThread = false;
+        } else {
+            activeThread = false;
+            pausedThread = true;
+        }
+
+        return start;
     }
 
     // Initialize Objects
@@ -97,11 +109,12 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
         jtxtHistory.setBackground(this.getColorPainel());
         jtxtHistory.setForeground(ColorValue.WHITE.build());
         JScrollPane scroll = new JScrollPane(jtxtHistory);
+        scroll.setOpaque(false);
         scroll.setBounds(5, 180, 254, 120);
 
         // Button Action
-        btAction = setCustomButton(new JButton(), StringValue.ST_BT_START.toString(), DrawableRes.IC_ACTION_PLAY_NORMAL.build(), DrawableRes.IC_ACTION_PLAY_PRESSED.build());
-        btAction.setBounds(170, 15, 75, 75);
+        btAction = createCustomButton(new JButton(), StringValue.ST_BT_START.toString(), DrawableRes.IC_ACTION_PLAY_NORMAL.build(), DrawableRes.IC_ACTION_PLAY_PRESSED.build());
+        btAction.setBounds(170, 15, 71, 71);
         btAction.setFocusable(false);
         btAction.addActionListener(this);
 
@@ -111,33 +124,33 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
         final int heightSmallButtons = 110;
 
         // Button Reset
-        btReset = setCustomButton(new JButton(), StringValue.ST_BT_RESET.toString(), DrawableRes.IC_ACTION_RESET_NORMAL.build(), DrawableRes.IC_ACTION_RESET_PRESSED.build());
+        btReset = createCustomButton(new JButton(), StringValue.ST_BT_RESET.toString(), DrawableRes.IC_ACTION_RESET_NORMAL.build(), DrawableRes.IC_ACTION_RESET_PRESSED.build());
         btReset.setBounds(40, heightSmallButtons, 30, 30);
         btReset.setFocusable(false);
         btReset.addActionListener(this);
         btReset.setEnabled(false);
 
         // Button add
-        btAddHistory = setCustomButton(new JButton(), StringValue.ST_BT_ADD_HISTORY.toString(), DrawableRes.IC_ACTION_ADD_HISTORY_NORMAL.build(), DrawableRes.IC_ACTION_ADD_HISTORY_PRESSED.build());
+        btAddHistory = createCustomButton(new JButton(), StringValue.ST_BT_ADD_HISTORY.toString(), DrawableRes.IC_ACTION_ADD_HISTORY_NORMAL.build(), DrawableRes.IC_ACTION_ADD_HISTORY_PRESSED.build());
         btAddHistory.setBounds(90, heightSmallButtons, 30, 30);
         btAddHistory.setFocusable(false);
         btAddHistory.addActionListener(this);
         btAddHistory.setEnabled(false);
 
         // Button settings
-        btSettings = setCustomButton(new JButton(), StringValue.ST_BT_SETTINGS.toString(), DrawableRes.IC_ACTION_SETTINGS_NORMAL.build(), DrawableRes.IC_ACTION_SETTINGS_PRESSED.build());
+        btSettings = createCustomButton(new JButton(), StringValue.ST_BT_SETTINGS.toString(), DrawableRes.IC_ACTION_SETTINGS_NORMAL.build(), DrawableRes.IC_ACTION_SETTINGS_PRESSED.build());
         btSettings.setBounds(140, heightSmallButtons, 30, 30);
         btSettings.setFocusable(false);
         btSettings.addActionListener(this);
 
         // Button about
-        btAbout = setCustomButton(new JButton(), StringValue.ST_BT_ABOUT.toString(), DrawableRes.IC_ACTION_ABOUT_NORMAL.build(), DrawableRes.IC_ACTION_ABOUT_PRESSED.build());
+        btAbout = createCustomButton(new JButton(), StringValue.ST_BT_ABOUT.toString(), DrawableRes.IC_ACTION_ABOUT_NORMAL.build(), DrawableRes.IC_ACTION_ABOUT_PRESSED.build());
         btAbout.setBounds(190, heightSmallButtons, 30, 30);
         btAbout.setFocusable(false);
         btAbout.addActionListener(this);
 
         // Button Clear
-        btClear = setCustomButton(new JButton(), StringValue.ST_BT_CLEAR.toString(), DrawableRes.IC_ACTION_CLEAR_NORMAL.build(), DrawableRes.IC_ACTION_CLEAR_PRESSED.build());
+        btClear = createCustomButton(new JButton(), StringValue.ST_BT_CLEAR.toString(), DrawableRes.IC_ACTION_CLEAR_NORMAL.build(), DrawableRes.IC_ACTION_CLEAR_PRESSED.build());
         btClear.setBounds(120, 313, 30, 30);
         btClear.setFocusable(false);
         btClear.addActionListener(this);
@@ -164,30 +177,18 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
 
     }
 
-    public static boolean setStart(boolean start) {
-        if (start) {
-            activeThread = true;
-            pausedThread = false;
-        } else {
-            activeThread = false;
-            pausedThread = true;
-        }
-
-        return start;
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btAction) {
             if (btAction.getName().equals(StringValue.ST_BT_START.toString())) {
-                btAction = setCustomButton(btAction, StringValue.ST_BT_PAUSE.toString(), DrawableRes.IC_ACTION_PAUSE_NORMAL.build(), DrawableRes.IC_ACTION_PAUSE_PRESSED.build());
+                btAction = createCustomButton(btAction, StringValue.ST_BT_PAUSE.toString(), DrawableRes.IC_ACTION_PAUSE_NORMAL.build(), DrawableRes.IC_ACTION_PAUSE_PRESSED.build());
                 ChrUI.setStart(true);
                 btReset.setEnabled(false);
                 btAddHistory.setEnabled(true);
                 threadChr = new Thread(this, "Chr");
                 threadChr.start();
             } else {
-                btAction = setCustomButton(btAction, StringValue.ST_BT_START.toString(), DrawableRes.IC_ACTION_PLAY_NORMAL.build(), DrawableRes.IC_ACTION_PLAY_PRESSED.build());
+                btAction = createCustomButton(btAction, StringValue.ST_BT_START.toString(), DrawableRes.IC_ACTION_PLAY_NORMAL.build(), DrawableRes.IC_ACTION_PLAY_PRESSED.build());
                 ChrUI.setStart(false);
                 threadChr.interrupt();
                 threadChr = null;
@@ -225,7 +226,16 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
                 getConf.requestFocus();
             }
         } else if (e.getSource() == btAbout) {
-            new AboutUI(this);
+            if (about == null) {
+                about = new AboutUI(this);
+            } else {
+                if (AboutUI.isVisible) {
+                    about.requestFocus();
+                } else {
+                    about.setVisible(true);
+                }
+            }
+
         } else if (e.getSource() == btClear) {
             jtxtHistory.setText(null);
             btClear.setEnabled(false);
@@ -235,7 +245,7 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
     // Get a hours of system.
     public String getHours() {
         Calendar c = GregorianCalendar.getInstance();
-        String get = "("+c.get(GregorianCalendar.HOUR_OF_DAY) + ":" + c.get(GregorianCalendar.MINUTE) + ":" + c.get(GregorianCalendar.SECOND)+")";
+        String get = "(" + c.get(GregorianCalendar.HOUR_OF_DAY) + ":" + c.get(GregorianCalendar.MINUTE) + ":" + c.get(GregorianCalendar.SECOND) + ")";
         return get;
     }
 
