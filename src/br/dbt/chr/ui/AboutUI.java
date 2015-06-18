@@ -74,8 +74,8 @@ public class AboutUI extends MaterialLookView implements Serializable {
         txtInfo.setSelectedTextColor(Color.WHITE);
         this.addComponentInPanel(txtInfo);
 
-        JLabel lbInfo = new JLabel("Para acessar o codigo fonte, acesse: ");
-        lbInfo.setBounds(20, 325, 200, 20);
+        JLabel lbInfo = new JLabel("Para ver o codigo fonte, acesse: ");
+        lbInfo.setBounds(34, 325, 200, 20);
         lbInfo.setForeground(Color.white);
         this.addComponentInPanel(lbInfo);
 

@@ -31,14 +31,12 @@ import java.awt.event.MouseEvent;
  */
 public class MaterialLookView extends JFrame {
 
-    /** Na implemntação é usada a vareavel do tipo Runtime para manusear a aplicação (Memoria, etc).
-     *
+    /**
+     * Na implemntação é usada a vareavel do tipo Runtime para manusear a aplicação (Memoria, etc).
      */
     protected Runtime runtime = Runtime.getRuntime();
-
     // Painel padrão da janela
     private JPanel jp;
-
     /* Botões da janela fechar e minimizar, como não ainda não existe o botão de maximizar, é somente ultilizado para montar caixa de dialogos
       ou Janelas menores (Por enquanto) a partir se essa classe for ultilizada com frequencia, a uma determinação que isso aparecera na proxima atualização.
      */
@@ -232,7 +230,6 @@ public class MaterialLookView extends JFrame {
         initButtonsOfWindow();
     }
 
-
     // Cria a borda da janela
     private void setBorderInFrame(Color c, int top, int left, int bottom, int right) {
         rootPane.setBackground(c);
@@ -328,7 +325,7 @@ public class MaterialLookView extends JFrame {
         return buildButton(source, name, icNormal, icPressed, icSelected, bounds);
     }
 
-    private JButton buildButton(JButton source, String name, Image icNormal, Image icPressed, Image icSelected, Rectangle bounds) {
+    private JButton buildButton(final JButton source, String name, Image icNormal, Image icPressed, Image icSelected, Rectangle bounds) {
         source.setName(name);
         source.setOpaque(false);
 
@@ -354,6 +351,14 @@ public class MaterialLookView extends JFrame {
     }
 
     /**
+     * Em breve....
+     */
+    @Deprecated
+    public JButton createCustomButtonWithAnimation(JButton customButtonSource, int size, int delay) {
+        return customButtonSource;
+    }
+
+    /**
      * Metodo para a criação de animações basicas com sequencias de imagens.
      *
      * @param size        - Tamanho da imagem do JLabel.
@@ -374,7 +379,7 @@ public class MaterialLookView extends JFrame {
 
                 synchronized (e) {
                     new Thread(() -> {
-                        int posArray = imgSequence.length - 1;
+                        final int posArray = imgSequence.length - 1;
 
                         for (int r = 1; r <= (repeat == 0 ? 1 : repeat); ++r) {
                             for (int pos = 0; pos <= posArray; pos++) {
@@ -383,11 +388,12 @@ public class MaterialLookView extends JFrame {
                                     Thread.sleep(delay);
                                 } catch (InterruptedException e1) {
                                     e1.printStackTrace();
+                                    // Dialog box
                                 }
                             }
                             source.setIcon(new ImageIcon(imgSequence[0].getScaledInstance(size, size, 50)));
                         }
-                    }, "Anim clark").start();
+                    }, "Anim").start();
                 }
             }
         });

@@ -7,23 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39bf3a0f-fc7f-4e5f-a0a6-3a6fe37e2509" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\Daniel\IdeaProjects\Cronometro\out\production\Cronometro\br\dbt\chr\ui\context\ChrLookFrame.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Daniel\IdeaProjects\Cronometro\src\br\dbt\chr\ui\context\ChrLookFrame.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Cronometro/br/dbt/chr/ui/AboutUI.class" afterPath="$PROJECT_DIR$/out/production/Cronometro/br/dbt/chr/ui/AboutUI.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Cronometro/br/dbt/chr/ui/ChrUI.class" afterPath="$PROJECT_DIR$/out/production/Cronometro/br/dbt/chr/ui/ChrUI.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Cronometro/br/dbt/chr/resources/DrawableRes.class" afterPath="$PROJECT_DIR$/out/production/Cronometro/br/dbt/chr/resources/DrawableRes.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Cronometro/Launcher.class" afterPath="$PROJECT_DIR$/out/production/Cronometro/Launcher.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Cronometro/br/dbt/chr/ui/context/MaterialLookView$1.class" afterPath="$PROJECT_DIR$/out/production/Cronometro/br/dbt/chr/ui/context/MaterialLookView$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Cronometro/br/dbt/chr/ui/context/MaterialLookView$2.class" afterPath="$PROJECT_DIR$/out/production/Cronometro/br/dbt/chr/ui/context/MaterialLookView$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Cronometro/br/dbt/chr/ui/context/MaterialLookView.class" afterPath="$PROJECT_DIR$/out/production/Cronometro/br/dbt/chr/ui/context/MaterialLookView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Cronometro/br/dbt/chr/ui/OptionsUI$1.class" afterPath="$PROJECT_DIR$/out/production/Cronometro/br/dbt/chr/ui/OptionsUI$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Cronometro/br/dbt/chr/ui/OptionsUI.class" afterPath="$PROJECT_DIR$/out/production/Cronometro/br/dbt/chr/ui/OptionsUI.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/br/dbt/chr/ui/AboutUI.java" afterPath="$PROJECT_DIR$/src/br/dbt/chr/ui/AboutUI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/br/dbt/chr/ui/ChrUI.java" afterPath="$PROJECT_DIR$/src/br/dbt/chr/ui/ChrUI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/br/dbt/chr/resources/DrawableRes.java" afterPath="$PROJECT_DIR$/src/br/dbt/chr/resources/DrawableRes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Launcher.java" afterPath="$PROJECT_DIR$/src/Launcher.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/br/dbt/chr/ui/context/MaterialLookView.java" afterPath="$PROJECT_DIR$/src/br/dbt/chr/ui/context/MaterialLookView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/br/dbt/chr/ui/OptionsUI.java" afterPath="$PROJECT_DIR$/src/br/dbt/chr/ui/OptionsUI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/br/dbt/chr/resources/values/StringValue.java" afterPath="$PROJECT_DIR$/src/br/dbt/chr/resources/values/StringValue.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Cronometro.iws" />
@@ -75,12 +64,12 @@
         <option value="$PROJECT_DIR$/src/br/dbt/chr/ui/context/Chronometer.java" />
         <option value="$PROJECT_DIR$/src/br/dbt/chr/ui/context/ProgramView.java" />
         <option value="$PROJECT_DIR$/src/Launcher.java" />
-        <option value="$PROJECT_DIR$/src/br/dbt/chr/ui/OptionsUI.java" />
-        <option value="$PROJECT_DIR$/src/br/dbt/chr/ui/context/MaterialLookView.java" />
-        <option value="$PROJECT_DIR$/src/br/dbt/chr/ui/ChrUI.java" />
         <option value="$PROJECT_DIR$/src/br/dbt/chr/resources/values/StringValue.java" />
         <option value="$PROJECT_DIR$/src/br/dbt/chr/resources/DrawableRes.java" />
         <option value="$PROJECT_DIR$/src/br/dbt/chr/ui/AboutUI.java" />
+        <option value="$PROJECT_DIR$/src/br/dbt/chr/ui/OptionsUI.java" />
+        <option value="$PROJECT_DIR$/src/br/dbt/chr/ui/ChrUI.java" />
+        <option value="$PROJECT_DIR$/src/br/dbt/chr/ui/context/MaterialLookView.java" />
       </list>
     </option>
   </component>
@@ -116,7 +105,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -128,6 +116,7 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -347,13 +336,12 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3415929" sideWeight="0.52118003" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24205749" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="108" y="116" width="1182" height="544" />
       <window_info id="Maven Projects" active="false" anchor="top" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32920355" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36106196" sideWeight="0.47881997" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32920355" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16490166" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16717096" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962178" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -362,6 +350,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24205749" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="108" y="116" width="1182" height="544" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32743362" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -376,14 +365,14 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3415929" sideWeight="0.52118003" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22541603" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="108" y="116" width="1182" height="544" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24205749" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="108" y="116" width="1182" height="544" />
       <window_info id="Maven Projects" active="false" anchor="top" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32920355" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36106196" sideWeight="0.47881997" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32920355" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16263238" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16717096" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32743362" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -409,7 +398,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="17" />
+      <option name="time" value="18" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -418,13 +407,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/br/dbt/chr/ui/OptionsUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="112" column="22" selection-start-line="112" selection-start-column="22" selection-end-line="112" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/br/dbt/chr/ui/ChrUI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -733,19 +715,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/br/dbt/chr/ui/OptionsUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.4776952">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_45/src.zip!/java/lang/StringBuffer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
           <caret line="668" column="31" selection-start-line="668" selection-start-column="31" selection-end-line="668" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -754,8 +727,8 @@
         <state vertical-scroll-proportion="0.33333334">
           <caret line="148" column="11" selection-start-line="148" selection-start-column="11" selection-end-line="148" selection-end-column="11" />
           <folding>
-            <element signature="e#5080#5081#0" expanded="true" />
-            <element signature="e#5118#5119#0" expanded="true" />
+            <element signature="e#5080#5081#0" expanded="false" />
+            <element signature="e#5118#5119#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -768,34 +741,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/br/dbt/chr/ui/ChrUI.java">
+    <entry file="file://$PROJECT_DIR$/src/br/dbt/chr/resources/DrawableRes.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.2072072">
+          <caret line="21" column="98" selection-start-line="21" selection-start-column="98" selection-end-line="21" selection-end-column="98" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_45/src.zip!/java/lang/SuppressWarnings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13813815">
+          <caret line="54" column="7" selection-start-line="54" selection-start-column="7" selection-end-line="54" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/br/dbt/chr/ui/context/MaterialLookView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="209" column="32" selection-start-line="209" selection-start-column="32" selection-end-line="209" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.4144144">
+          <caret line="32" column="4" selection-start-line="32" selection-start-column="4" selection-end-line="32" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2216#2217#0" expanded="true" />
+            <element signature="e#2260#2261#0" expanded="true" />
+            <element signature="e#9528#9529#0" expanded="true" />
+            <element signature="e#9566#9567#0" expanded="true" />
+            <element signature="e#9681#9682#0" expanded="true" />
+            <element signature="e#9722#9723#0" expanded="true" />
+            <element signature="e#9888#9889#0" expanded="true" />
+            <element signature="e#9929#9930#0" expanded="true" />
+            <element signature="e#10048#10049#0" expanded="true" />
+            <element signature="e#10095#10096#0" expanded="true" />
+            <element signature="e#10393#10394#0" expanded="true" />
+            <element signature="e#10447#10448#0" expanded="true" />
+            <element signature="e#10572#10573#0" expanded="true" />
+            <element signature="e#10613#10614#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/br/dbt/chr/ui/ChrUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5495495">
+          <caret line="157" column="76" selection-start-line="157" selection-start-column="76" selection-end-line="157" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/br/dbt/chr/ui/OptionsUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33933935">
+          <caret line="113" column="62" selection-start-line="113" selection-start-column="62" selection-end-line="113" selection-end-column="62" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/br/dbt/chr/ui/AboutUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25525525">
-          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/br/dbt/chr/resources/DrawableRes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2072072">
-          <caret line="21" column="98" selection-start-line="21" selection-start-column="98" selection-end-line="21" selection-end-column="98" />
+        <state vertical-scroll-proportion="0.5345345">
+          <caret line="77" column="27" selection-start-line="77" selection-start-column="27" selection-end-line="77" selection-end-column="27" />
           <folding />
         </state>
       </provider>
