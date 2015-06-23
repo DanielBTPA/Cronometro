@@ -1,12 +1,14 @@
 package br.dbt.chr.ui.context;
 
 import br.dbt.chr.resources.DrawableRes;
+import br.dbt.chr.util.StateIO;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 
 /**
  * Classe dedicada para criação de janelas customizadas com uma aparencia mais bonita, atualmente esta em versões.
@@ -29,18 +31,26 @@ import java.awt.event.MouseEvent;
  * @see br.dbt.chr.resources.values.ColorValue
  * @since JDK 1.8
  */
-public class MaterialLookView extends JFrame {
+public class MaterialLookView extends JFrame implements Serializable {
 
+
+    private static final long serialVersionUID = -3741572581395532138L;
+
+    // Painel padrão da janela
+    public JPanel jp;
     /**
      * Na implemntação é usada a vareavel do tipo Runtime para manusear a aplicação (Memoria, etc).
      */
-    protected Runtime runtime = Runtime.getRuntime();
-    // Painel padrão da janela
-    private JPanel jp;
+    protected transient Runtime runtime = Runtime.getRuntime();
     /* Botões da janela fechar e minimizar, como não ainda não existe o botão de maximizar, é somente ultilizado para montar caixa de dialogos
       ou Janelas menores (Por enquanto) a partir se essa classe for ultilizada com frequencia, a uma determinação que isso aparecera na proxima atualização.
      */
-    private JButton btClose, btMin;
+    private transient JButton btClose, btMin;
+
+    // Define se deseja serializar esse objeto
+    private transient boolean setSerializable;
+    private transient String path;
+    private transient Object getObject;
 
     /**
      * Construtor (Obrigatorio determinar o tamanho da janela)
@@ -80,6 +90,53 @@ public class MaterialLookView extends JFrame {
         super.setSize(width, height);
     }
 
+    /**
+     * Metodo para a criação de animações basicas com sequencias de imagens.
+     *
+     * @param size        - Tamanho da imagem do JLabel.
+     * @param repeat      - Numero de repetições (Se for 0, será repetido uma vez).
+     * @param delay       - Delay da animação.
+     * @param imgSequence - Coleções de imagens para que possa execultar uma atraz da outra.
+     * @return - Jlabel para manusear e add no container da janela ou painel.
+     */
+    public static JLabel createAnimationWithMouse(int size, int repeat, int delay, Image[] imgSequence) {
+        JLabel source = new JLabel(new ImageIcon(imgSequence[0].getScaledInstance(size, size, 50)));
+        source.setSize(size, size);
+        source.setDoubleBuffered(true);
+        source.setOpaque(false);
+        source.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+
+                synchronized (e) {
+                    new Thread(() -> {
+                        final int posArray = imgSequence.length - 1;
+
+                        for (int r = 1; r <= (repeat == 0 ? 1 : repeat); ++r) {
+                            for (int pos = 0; pos <= posArray; pos++) {
+                                try {
+                                    source.setIcon(new ImageIcon(imgSequence[pos].getScaledInstance(size, size, 50)));
+                                    Thread.sleep(delay);
+                                } catch (InterruptedException e1) {
+                                    e1.printStackTrace();
+                                    // Dialog box
+                                }
+                            }
+                            source.setIcon(new ImageIcon(imgSequence[0].getScaledInstance(size, size, 50)));
+                        }
+                    }, "Anim").start();
+                }
+            }
+        });
+        return source;
+    }
+
+    protected void initFrame(Type type, boolean setSerializable) {
+        this.initFrame(type);
+        this.setSerializable = setSerializable;
+    }
+
     // Inicialização da janela
     protected void initFrame(Type type) {
 
@@ -114,7 +171,7 @@ public class MaterialLookView extends JFrame {
         // Inicialização do painel
         jp = new JPanel();
         jp.setLayout(null);
-        this.add(jp);
+        super.add(jp);
 
         // Cores padrões da janela - Isso pode ser atribuido pelos metodos "setColorPrimary" e "setColorSecundary".
         this.setBackgroundPrimary(new Color(194, 194, 194));
@@ -167,6 +224,16 @@ public class MaterialLookView extends JFrame {
         this.addMouseMotionListener(ma);
     }
 
+    public void saveState(String path, Object getObject) {
+        if ((path != null) || !(path.equals(""))) {
+            this.path = path;
+            this.getObject = getObject;
+            this.setSerializable = true;
+        } else {
+            throw new NullPointerException("Define o caminho do arquivo!!");
+        }
+    }
+
     /**
      * Inicialização dos botões fechar e maximizar (Alpha)
      *
@@ -177,6 +244,14 @@ public class MaterialLookView extends JFrame {
         ActionListener actionButton = (event) -> {
             if (event.getSource() == btClose) {
                 if (getType() != Type.UTILITY) {
+                    if (this.getDefaultCloseOperation() == EXIT_ON_CLOSE) {
+                        if (setSerializable) {
+                            StateIO state = new StateIO(path);
+                            state.putObjectForSerializable(getObject);
+                            state.save();
+                        }
+                    }
+
                     System.exit(0);
                 }
                 dispose();
@@ -356,47 +431,5 @@ public class MaterialLookView extends JFrame {
     @Deprecated
     public JButton createCustomButtonWithAnimation(JButton customButtonSource, int size, int delay) {
         return customButtonSource;
-    }
-
-    /**
-     * Metodo para a criação de animações basicas com sequencias de imagens.
-     *
-     * @param size        - Tamanho da imagem do JLabel.
-     * @param repeat      - Numero de repetições (Se for 0, será repetido uma vez).
-     * @param delay       - Delay da animação.
-     * @param imgSequence - Coleções de imagens para que possa execultar uma atraz da outra.
-     * @return - Jlabel para manusear e add no container da janela ou painel.
-     */
-    public JLabel createAnimationWithMouse(int size, int repeat, int delay, Image[] imgSequence) {
-        JLabel source = new JLabel(new ImageIcon(imgSequence[0].getScaledInstance(size, size, 50)));
-        source.setSize(size, size);
-        source.setDoubleBuffered(true);
-        source.setOpaque(false);
-        source.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-
-                synchronized (e) {
-                    new Thread(() -> {
-                        final int posArray = imgSequence.length - 1;
-
-                        for (int r = 1; r <= (repeat == 0 ? 1 : repeat); ++r) {
-                            for (int pos = 0; pos <= posArray; pos++) {
-                                try {
-                                    source.setIcon(new ImageIcon(imgSequence[pos].getScaledInstance(size, size, 50)));
-                                    Thread.sleep(delay);
-                                } catch (InterruptedException e1) {
-                                    e1.printStackTrace();
-                                    // Dialog box
-                                }
-                            }
-                            source.setIcon(new ImageIcon(imgSequence[0].getScaledInstance(size, size, 50)));
-                        }
-                    }, "Anim").start();
-                }
-            }
-        });
-        return source;
     }
 }

@@ -16,18 +16,23 @@ import java.util.GregorianCalendar;
 public class ChrUI extends MaterialLookView implements Serializable, ActionListener,
         Runnable {
 
+    // Controle de versão do aplicativo
+    public static final double VERSION_APP = 1.3;
     /**
      * Java JDK 1.8/SE 1.8
      */
 
-    private static final long serialVersionUID = -6540072618399857687L;
 
-    // Controle de versão do aplicativo
-    public static final double VERSION_APP = 1.2;
+    public static final String PATH_DEFAULT = "Files/Data/ChrUI.data";
+
+
+    // Default Serial
+    private static final long serialVersionUID = 1338888196052293878L;
 
     // Controle da thread
     private static volatile boolean activeThread = false,
             pausedThread = false;
+
     public JButton btClear;
 
     public transient JTextArea jtxtHistory;
@@ -158,8 +163,17 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
         btClear.setEnabled(jtxtHistory.getText().equals("") ? false : true);
 
 
+        /* Recupera a cor da borda e painel
+         *
+         *
+         */
         if (saved != null) {
-            //...
+            Color c = saved.getBackgroundPrimary();
+            this.setBackgroundPrimary(c);
+            jtxtHistory.setBackground(c);
+            this.setBackgroundSecundary(saved.getBackgroundSecundary());
+            btClear.setVisible(saved.btClear.isVisible());
+            btClear.setEnabled(saved.btClear.isEnabled());
             getConf = saved.getConf;
         }
 

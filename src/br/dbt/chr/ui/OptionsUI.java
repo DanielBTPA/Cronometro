@@ -19,6 +19,7 @@ public class OptionsUI extends MaterialLookView implements ActionListener, Seria
      *
      */
     private static final long serialVersionUID = 6528188934016921309L;
+
     public static boolean isVisible = false;
     private transient ChrUI c;
     private JCheckBox chkTwoPlan, chkShowButtonClear;
@@ -48,8 +49,6 @@ public class OptionsUI extends MaterialLookView implements ActionListener, Seria
             public void windowClosed(WindowEvent e) {
                 super.windowClosed(e);
                 isVisible = false;
-
-                System.out.println(isVisible);
             }
         });
 
@@ -72,30 +71,30 @@ public class OptionsUI extends MaterialLookView implements ActionListener, Seria
         // Themes
         jlTheme = new JLabel(StringValue.ST_LB_THEME.toString());
         jlTheme.setBounds(10, 100, 120, 20);
+        // CheckBox - ShowButtonClear
+        chkShowButtonClear = new JCheckBox(StringValue.ST_LB_SHOW_CLEAR.toString());
+        chkShowButtonClear.setBounds(10, 60, 160, 20);
+        chkShowButtonClear.setFocusable(false);
 
+        // ComboBox Theme
+        cbTheme = new JComboBox<String>(StringArrayValue.CB_ITEMS_THEME.getArray());
+        cbTheme.setBounds(10, 125, 70, 20);
+        cbTheme.setFocusable(false);
 
-        if (o == null) {
-            // CheckBox - ShowButtonClear
-            chkShowButtonClear = new JCheckBox(StringValue.ST_LB_SHOW_CLEAR.toString());
-            chkShowButtonClear.setBounds(10, 60, 160, 20);
-            chkShowButtonClear.setFocusable(false);
+        // CheckBox - Two Plain
+        chkTwoPlan = new JCheckBox(StringValue.ST_LB_ADD_TWO_PLAN.toString());
+        chkTwoPlan.setBounds(10, 30, 165, 20);
+        chkTwoPlan.setFocusable(false);
+        chkTwoPlan.setEnabled(false); // Wait for elaboration of code.
 
-            // ComboBox Theme
-            cbTheme = new JComboBox<String>(StringArrayValue.CB_ITEMS_THEME.getArray());
-            cbTheme.setBounds(10, 125, 70, 20);
-            cbTheme.setFocusable(false);
-
-            // CheckBox - Two Plain
-            chkTwoPlan = new JCheckBox(StringValue.ST_LB_ADD_TWO_PLAN.toString());
-            chkTwoPlan.setBounds(10, 30, 165, 20);
-            chkTwoPlan.setFocusable(false);
-            chkTwoPlan.setEnabled(false); // Wait for elaboration of code.
-        } else {
-            cbTheme = o.cbTheme;
-            chkShowButtonClear = o.chkShowButtonClear;
-            chkTwoPlan = o.chkTwoPlan;
+        // Recupera dados selecionados
+        if (o != null) {
+            chkTwoPlan.setSelected(o.chkShowButtonClear.isSelected());
+            chkShowButtonClear.setSelected(o.chkShowButtonClear.isSelected());
+            cbTheme.setSelectedIndex(o.cbTheme.getSelectedIndex());
         }
 
+        // Adiciona componente ao painel
         addComponentInPanel(btOk);
         addComponentInPanel(btApply);
         addComponentInPanel(jlTheme);
@@ -106,6 +105,8 @@ public class OptionsUI extends MaterialLookView implements ActionListener, Seria
 
         // Initialize interface
         setVisible(true);
+
+
     }
 
     private void saveChanges() {
@@ -153,6 +154,6 @@ public class OptionsUI extends MaterialLookView implements ActionListener, Seria
         } else if (btApply == e.getSource()) {
             this.saveChanges();
         }
-
+        c.saveState(ChrUI.PATH_DEFAULT, this.c);
     }
 }

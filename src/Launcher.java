@@ -1,18 +1,29 @@
 import br.dbt.chr.ui.ChrUI;
-import br.dbt.chr.ui.context.MaterialLookView;
+import br.dbt.chr.util.StateIO;
 
 import javax.swing.*;
+import java.io.IOException;
 
 public class Launcher {
 
-    public static void main(String[] args) {
+    private static ChrUI get;
 
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                ChrUI c = new ChrUI();
-                c.onInit(null);
-                c.setVisible(true);
+    public static void main(String[] args) throws ClassNotFoundException {
+
+        StateIO state = new StateIO(ChrUI.PATH_DEFAULT);
+        try {
+            state.createPathIfNotExists();
+            if (!state.isFileEmpty()) {
+                get = (ChrUI) state.getStateObject();
             }
+        } catch (IOException e) {}
+
+        SwingUtilities.invokeLater(() -> {
+            ChrUI c = new ChrUI();
+
+            c.onInit(get != null ? get : null);
+
+            c.setVisible(true);
         });
     }
 
