@@ -3,15 +3,13 @@ package br.dbt.chr.ui;
 import br.dbt.chr.resources.DrawableRes;
 import br.dbt.chr.resources.values.ColorValue;
 import br.dbt.chr.resources.values.StringValue;
-import br.dbt.chr.ui.context.MaterialLookView;
+import br.dbt.chr.ui.components.MaterialLookView;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 import java.io.Serializable;
-import java.net.URI;
 import java.net.URL;
 
 public class AboutUI extends MaterialLookView implements Serializable {

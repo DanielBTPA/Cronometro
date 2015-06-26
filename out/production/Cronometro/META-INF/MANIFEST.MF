@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
-Main-Class: Launcher
+Main-Class: br.dbt.chr.main.Launcher
 Created-By: Daniel BT
 Implementation-Title: Cronometro

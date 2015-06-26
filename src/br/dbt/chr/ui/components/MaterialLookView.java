@@ -1,4 +1,4 @@
-package br.dbt.chr.ui.context;
+package br.dbt.chr.ui.components;
 
 import br.dbt.chr.resources.DrawableRes;
 import br.dbt.chr.util.StateIO;
@@ -244,15 +244,24 @@ public class MaterialLookView extends JFrame implements Serializable {
         ActionListener actionButton = (event) -> {
             if (event.getSource() == btClose) {
                 if (getType() != Type.UTILITY) {
-                    if (this.getDefaultCloseOperation() == EXIT_ON_CLOSE) {
-                        if (setSerializable) {
-                            StateIO state = new StateIO(path);
-                            state.putObjectForSerializable(getObject);
-                            state.save();
-                        }
+                    if (setSerializable) {
+                        StateIO state = new StateIO(path);
+                        state.putObjectForSerializable(getObject);
+                        state.save();
                     }
 
-                    System.exit(0);
+                    switch (getDefaultCloseOperation()) {
+                        case HIDE_ON_CLOSE:
+                            setVisible(false);
+                            break;
+                        case EXIT_ON_CLOSE:
+                            System.exit(0);
+                            break;
+                        case DISPOSE_ON_CLOSE:
+                            dispose();
+                            break;
+                        case DO_NOTHING_ON_CLOSE:
+                    }
                 }
                 dispose();
             } else if (event.getSource() == btMin) {

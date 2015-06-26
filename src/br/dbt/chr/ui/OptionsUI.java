@@ -3,7 +3,7 @@ package br.dbt.chr.ui;
 import br.dbt.chr.resources.values.ColorValue;
 import br.dbt.chr.resources.values.StringValue;
 import br.dbt.chr.resources.values.StringValue.StringArrayValue;
-import br.dbt.chr.ui.context.MaterialLookView;
+import br.dbt.chr.ui.components.MaterialLookView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,7 +53,6 @@ public class OptionsUI extends MaterialLookView implements ActionListener, Seria
         });
 
         this.setBackgroundPrimary(Color.WHITE);
-        this.setBackgroundSecundary(c.getBackgroundSecundary());
 
 
         // Button - Ok

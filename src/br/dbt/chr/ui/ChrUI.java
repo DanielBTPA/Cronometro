@@ -3,21 +3,24 @@ package br.dbt.chr.ui;
 import br.dbt.chr.resources.DrawableRes;
 import br.dbt.chr.resources.values.ColorValue;
 import br.dbt.chr.resources.values.StringValue;
-import br.dbt.chr.ui.context.MaterialLookView;
+import br.dbt.chr.ui.components.MaterialLookView;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class ChrUI extends MaterialLookView implements Serializable, ActionListener,
         Runnable {
 
     // Controle de versão do aplicativo
-    public static final double VERSION_APP = 1.3;
+    public static final double VERSION_APP = 1.4;
     /**
      * Java JDK 1.8/SE 1.8
      */
@@ -30,7 +33,7 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
     private static final long serialVersionUID = 1338888196052293878L;
 
     // Controle da thread
-    private static volatile boolean activeThread = false,
+    private volatile boolean activeThread = false,
             pausedThread = false;
 
     public JButton btClear;
@@ -40,7 +43,7 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
     public transient JLabel jlVisorChr, jlMsm;
 
     public OptionsUI getConf;
-    public AboutUI about;
+    public transient AboutUI about;
     private transient JButton btAction, btReset, btAddHistory, btSettings,
             btAbout;
     // millsecounds, secounds, minutes
@@ -70,7 +73,7 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
         }
     }
 
-    public static boolean setStart(boolean start) {
+    public boolean setStart(boolean start) {
         if (start) {
             activeThread = true;
             pausedThread = false;
@@ -114,6 +117,7 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
         jtxtHistory.setBackground(this.getColorPainel());
         jtxtHistory.setForeground(ColorValue.WHITE.build());
         JScrollPane scroll = new JScrollPane(jtxtHistory);
+        scrollBar = scroll.getVerticalScrollBar();
         scroll.setOpaque(false);
         scroll.setBounds(5, 180, 254, 120);
 
@@ -160,7 +164,7 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
         btClear.setFocusable(false);
         btClear.addActionListener(this);
         btClear.setVisible(false);
-        btClear.setEnabled(jtxtHistory.getText().equals("") ? false : true);
+        btClear.setEnabled(false);
 
 
         /* Recupera a cor da borda e painel
@@ -173,7 +177,7 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
             jtxtHistory.setBackground(c);
             this.setBackgroundSecundary(saved.getBackgroundSecundary());
             btClear.setVisible(saved.btClear.isVisible());
-            btClear.setEnabled(saved.btClear.isEnabled());
+            btClear.setEnabled(jtxtHistory.getText().equals("") ? false : saved.btClear.isSelected());
             getConf = saved.getConf;
         }
 
@@ -191,19 +195,21 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
 
     }
 
+    JScrollBar scrollBar;
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btAction) {
             if (btAction.getName().equals(StringValue.ST_BT_START.toString())) {
                 btAction = createCustomButton(btAction, StringValue.ST_BT_PAUSE.toString(), DrawableRes.IC_ACTION_PAUSE_NORMAL.build(), DrawableRes.IC_ACTION_PAUSE_PRESSED.build());
-                ChrUI.setStart(true);
+                this.setStart(true);
                 btReset.setEnabled(false);
                 btAddHistory.setEnabled(true);
                 threadChr = new Thread(this, "Chr");
                 threadChr.start();
             } else {
                 btAction = createCustomButton(btAction, StringValue.ST_BT_START.toString(), DrawableRes.IC_ACTION_PLAY_NORMAL.build(), DrawableRes.IC_ACTION_PLAY_PRESSED.build());
-                ChrUI.setStart(false);
+                this.setStart(false);
                 threadChr.interrupt();
                 threadChr = null;
                 btReset.setEnabled(true);
@@ -223,12 +229,9 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
             jlVisorChr.setText(StringValue.ST_CONT_0.toString());
 
         } else if (e.getSource() == btAddHistory) {
-            if (activeThread) {
                 btClear.setEnabled(true);
-                jtxtHistory.setText("Tempo marcado: " + jlVisorChr.getText()
-                        + " - " + getHours() + "\n" + jtxtHistory.getText());
-
-            }
+                jtxtHistory.append("Tempo marcado: " + jlVisorChr.getText()
+                        + " - " + getHours() + "\n");
         } else if (e.getSource() == btSettings) {
             if (!OptionsUI.isVisible) {
                 if (getConf == null) {
@@ -256,11 +259,12 @@ public class ChrUI extends MaterialLookView implements Serializable, ActionListe
         }
     }
 
-    // Get a hours of system.
+    // Obtem a hora do sistema.
     public String getHours() {
         Calendar c = GregorianCalendar.getInstance();
-        String get = "(" + c.get(GregorianCalendar.HOUR_OF_DAY) + ":" + c.get(GregorianCalendar.MINUTE) + ":" + c.get(GregorianCalendar.SECOND) + ")";
-        return get;
+        Date date = c.getTime();
+        DateFormat format = new SimpleDateFormat("HH:mm:ss");
+        return "(" +format.format(date) + ")";
     }
 
     @Override

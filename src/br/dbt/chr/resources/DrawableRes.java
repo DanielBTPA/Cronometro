@@ -14,7 +14,7 @@ import java.net.URL;
 
 public enum DrawableRes {
 	
-	//
+	//sschronometer.jpg
 	
 	// Icon github
 	IC_ACTION_OPEN_GIT_NORMAL("br/dbt/chr/resources/drawable/ic_action_open_git_normal.png", 30, 30),
@@ -25,6 +25,7 @@ public enum DrawableRes {
 	LOGO("br/dbt/chr/resources/drawable/image/logo.png", 300, 230),
     LOGO_1("br/dbt/chr/resources/drawable/image/logo_1.png", 160, 160),
     LOGO_2("br/dbt/chr/resources/drawable/image/logo_2.png", 160, 160),
+    SSCHRONOMETER("br/dbt/chr/resources/drawable/image/sschronometer.jpg", 470, 300),
 
     // Icon Launcher
     IC_LAUNCHER("br/dbt/chr/resources/drawable/ic_launcher.png", null),
@@ -106,5 +107,11 @@ public enum DrawableRes {
         return img;
     }
 
-
+    /**
+     *
+     * @return - O caminho da imagem na aplicação.
+     */
+    public String getPath() {
+        return getPath.getPath();
+    }
 }

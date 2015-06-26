@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/src/Launcher.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/dbt/chr/main/Launcher.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/src/br/dbt/chr/resources/DrawableRes.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/br/dbt/chr/resources/values/StringValue.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/src/br/dbt/chr/ui/ChrUI.java" charset="ISO-8859-1" />
